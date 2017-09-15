@@ -152,6 +152,14 @@ class KMeansModel private[ml] (
   }
 
   /**
+   * Compute cost for a single vector
+   */
+  @Since("2.3.0")
+  def computeCost(vector: Vector): Double = {
+    parentModel.computeCost(OldVectors.fromML(vector))
+  }
+
+  /**
    * Returns a [[org.apache.spark.ml.util.MLWriter]] instance for this ML instance.
    *
    * For [[KMeansModel]], this does NOT currently save the training [[summary]].
@@ -343,7 +351,6 @@ class KMeans @Since("1.5.0") (
 
 @Since("1.6.0")
 object KMeans extends DefaultParamsReadable[KMeans] {
-
   @Since("1.6.0")
   override def load(path: String): KMeans = super.load(path)
 }

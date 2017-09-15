@@ -91,6 +91,13 @@ class KMeansModel @Since("1.1.0") (@Since("1.0.0") val clusterCenters: Array[Vec
     cost
   }
 
+  /**
+   * Return the cost for a single vector
+   */
+  @Since("2.3.0")
+  def computeCost(vector: Vector): Double = {
+    KMeans.pointCost(clusterCentersWithNorm, new VectorWithNorm(vector))
+  }
 
   @Since("1.4.0")
   override def save(sc: SparkContext, path: String): Unit = {
